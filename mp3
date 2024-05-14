@@ -1,13 +1,13 @@
 #include "mbed.h"
 
 Serial pc(USBTX, USBRX);
-Serial device(D14, D15);
+Serial device(A2, A3);
 void playpause();
 void volume(int);
 void previous();
 void next();
 void stop();
-void fich(char track);
+void fich();
 char val;
 int v = 1;
 int main() {
@@ -47,11 +47,9 @@ int main() {
         printf("stop \n\r");
       }
       if (val == 't') {
-          printf("tu veux quoi ? max 6 \n\r");
-          int c;
-          scanf("%d",&c);
-          printf("%d \n\r",c);
-          fich(c);
+        fich();
+        printf("changement de piste \n\r");
+        
       }
     }
   }
@@ -94,11 +92,10 @@ void stop() {
     device.putc(tab[i]);
   }
 }
-void fich(char track) {
-  char tab[7] = {0x7E, 0x05, 0xA0, 0x00, 1, 0, 0xEF};
-  tab [4]=track;
-  tab[5] = tab[1] + tab[2] + tab[3] + tab[4] ;
-  for (int i = 0; i < 7; i++) {
+void fich() {
+  char tab[9] = {0x7E, 0x07, 0xA3, 'C', 'A', 'R', 'S', 0, 0xEF};
+  tab[7] = tab[1] + tab[2] + tab[3] + tab[4] + tab[5] + tab[6];
+  for (int i = 0; i < 9; i++) {
     device.putc(tab[i]);
   }
 }
