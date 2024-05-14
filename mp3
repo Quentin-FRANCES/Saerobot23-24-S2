@@ -1,0 +1,104 @@
+#include "mbed.h"
+
+Serial pc(USBTX, USBRX);
+Serial device(D14, D15);
+void playpause();
+void volume(int);
+void previous();
+void next();
+void stop();
+void fich(char track);
+char val;
+int v = 1;
+int main() {
+  volume(v);
+    device.baud(9600);
+  while (1) {
+    if (pc.readable()) {
+      val = pc.getc();
+      if (val == 'a') {
+        if (v < 31) {
+          v++;
+        }
+        volume(v);
+        printf("volume= %d \n\r", v);
+      }
+      if (val == 'z') {
+        if (v > 0) {
+          v--;
+        }
+        volume(v);
+        printf("volume= %d \n\r", v);
+      }
+      if (val == 'p') {
+        playpause();
+        printf("playPause \n\r");
+      }
+      if (val == 'l') {
+        previous();
+        printf("Previous \n\r");
+      }
+      if (val == 'm') {
+        next();
+        printf("next \n\r");
+      }
+      if (val == 's') {
+        stop();
+        printf("stop \n\r");
+      }
+      if (val == 't') {
+          printf("tu veux quoi ? max 6 \n\r");
+          int c;
+          scanf("%d",&c);
+          printf("%d \n\r",c);
+          fich(c);
+      }
+    }
+  }
+}
+
+void playpause() {
+  char tab[5] = {0x7E, 0x03, 0xAA, 0, 0xEF};
+  tab[3] = tab[1] + tab[2];
+  for (int i = 0; i < 5; i++) {
+    device.putc(tab[i]);
+  }
+}
+void volume(int parametre) {
+  char tab[6] = {0x7E, 0x04, 0xAE, parametre, 0, 0xEF};
+  tab[4] = tab[1] + tab[2] + tab[3];
+  for (int i = 0; i < 6; i++) {
+    device.putc(tab[i]);
+  }
+}
+
+void next() {
+  char tab[5] = {0x7E, 0x03, 0xAC, 0, 0xEF};
+  tab[3] = tab[1] + tab[2];
+  for (int i = 0; i < 5; i++) {
+    device.putc(tab[i]);
+  }
+}
+
+void previous() {
+  char tab[5] = {0x7E, 0x03, 0xAD, 0, 0xEF};
+  tab[3] = tab[1] + tab[2];
+  for (int i = 0; i < 5; i++) {
+    device.putc(tab[i]);
+  }
+}
+void stop() {
+  char tab[5] = {0x7E, 0x03, 0xAB, 0, 0xEF};
+  tab[3] = tab[1] + tab[2];
+  for (int i = 0; i < 5; i++) {
+    device.putc(tab[i]);
+  }
+}
+void fich(char track) {
+  char tab[7] = {0x7E, 0x05, 0xA0, 0x00, 1, 0, 0xEF};
+  tab [4]=track;
+  tab[5] = tab[1] + tab[2] + tab[3] + tab[4] ;
+  for (int i = 0; i < 7; i++) {
+    device.putc(tab[i]);
+  }
+}
