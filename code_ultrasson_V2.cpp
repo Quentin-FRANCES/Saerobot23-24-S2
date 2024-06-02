@@ -35,3 +35,18 @@ void echo_fall(){
     mesure = timer.read();
     timer.reset();
 }
+
+
+
+#include "mbed.h"
+#include "SRF05.h"
+
+SRF05 Capt_avant(A5, D4);
+SRF05 Capt_gauche(PTE30, D5);
+
+int main(){
+    while(true){
+        printf("Capteur avant : %lg", Capt_avant.read());
+        printf("Capteur gauche : %lg\n\r", Capt_gauche.read());
+    }
+}
