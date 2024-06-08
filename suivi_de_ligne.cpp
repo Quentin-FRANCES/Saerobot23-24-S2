@@ -56,48 +56,8 @@ int main() {
     capt2 = capt_2.read();
     capt3 = capt_3.read();
     delta = capt2 - capt3;
-    /*switch (etat) {
-    case 0: if (captav <= 15 && captavav > 15) {
-            vitesse(0.0, 0.0);
-            wait(1);
-            tourne(90);
-            wait(1);
-            cpt1 = 0;
-            cpt2 = 0;
-            etat = 1;
-        }
-        break;
-    case 1:
-        if (captg >= 30 && captgav < 30) {
-            cpt1av = cpt1;
-            avance(100);
-            wait(1);
-            tourne(300);    
-            wait(1);
-            avance(200);
-            wait(1);
-            tourne(300);
-            wait(1);
-            avance(cpt1av+100);
-            wait(1);
-            tourne(90);
-            wait(1);
-            cpt1 = 0;
-            cpt2 = 0;
-            etat = 0;
-        }
-        break;
-        
-    }
-    switch (etat) {
 
-    case 0: 
-        toutdroit();
-        break;
-       
-    case 1: toutdroit(); break;
-      
-    }*/
+          
     if(delta<=0) {
         SMOT_G.write(0);
         SMOT_D.write(0);
