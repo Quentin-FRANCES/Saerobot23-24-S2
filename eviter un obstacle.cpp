@@ -99,7 +99,7 @@ int main() {
     sprintf(tab,"capteurav = %.2f",captav);
     LCD.locate(0,0);
     LCD.print(tab);
-    sprintf(tab,"capteurav = %.2f",captg);
+    sprintf(tab,"capteurg = %.2f",captg);
     LCD.locate(0,1);
     LCD.print(tab);
     //printf("capt2 = %.2f   capt3 = %.2f \n\r", capt2,capt3);
